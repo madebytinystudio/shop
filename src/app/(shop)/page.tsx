@@ -36,7 +36,7 @@ export default async function HomePage({ searchParams }: HomeProps) {
       <div className="flex gap-12 items-start">
         {/* Desktop: sidebar */}
         {categories.length > 0 && (
-          <div className="hidden md:block sticky top-14 self-start h-[calc(100vh-56px)] overflow-y-auto pt-10">
+          <div className="hidden md:block sticky top-14 self-start max-h-[calc(100vh-56px)] overflow-y-auto pt-10">
             <CategorySidebar categories={categories} activeCategory={category} />
           </div>
         )}

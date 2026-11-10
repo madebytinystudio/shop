@@ -16,8 +16,8 @@ export default function Header() {
         {/* Desktop: left nav */}
         <nav className="hidden md:flex items-center gap-6 text-xs tracking-wide text-zinc-500 uppercase">
           <Link href="/" className="hover:text-zinc-900 transition-colors">Каталог</Link>
-          <Link href="/pages/about" className="hover:text-zinc-900 transition-colors">О нас</Link>
-          <Link href="/pages/delivery" className="hover:text-zinc-900 transition-colors">Доставка</Link>
+          <Link href="/about" className="hover:text-zinc-900 transition-colors">О нас</Link>
+          <Link href="/faq" className="hover:text-zinc-900 transition-colors">FAQ</Link>
         </nav>
 
         {/* Desktop: center logo */}
@@ -27,12 +27,6 @@ export default function Header() {
 
         {/* Right icons — always visible */}
         <div className="flex items-center gap-4">
-          {/* Search */}
-          <button className="text-zinc-400 hover:text-zinc-900 transition-colors cursor-pointer">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
-          </button>
           {/* WhatsApp */}
           <a
             href={waUrl}

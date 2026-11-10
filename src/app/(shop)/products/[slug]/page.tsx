@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import { getProductBySlug, getRelatedProducts } from '@/lib/actions/products'
 import { trackEvent } from '@/lib/actions/analytics'
 import { formatPrice, buildWhatsAppUrl } from '@/lib/format'
@@ -59,62 +58,59 @@ export default async function ProductPage({ params }: PageProps) {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6 sm:py-10">
-        {/* Breadcrumb */}
-        <Link href="/" className="text-xs text-zinc-400 hover:text-zinc-700 transition-colors tracking-wide uppercase mb-10 inline-block">
-          ← Каталог
-        </Link>
+      {/* Full-screen split layout */}
+      <div className="flex flex-col md:flex-row items-start">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-20">
-          {/* Gallery */}
+        {/* Left: scrolling images */}
+        <div className="w-full md:w-1/2">
           <ProductGallery images={product.product_images ?? []} productName={product.name} />
+        </div>
 
-          {/* Info */}
-          <div className="flex flex-col md:py-4">
-            {product.categories && (
-              <p className="text-xs uppercase tracking-widest text-zinc-400 mb-3">
-                {product.categories.name}
-              </p>
-            )}
-
-            <h1 className="text-xl font-medium text-zinc-900 mb-4 leading-snug">
-              {product.name}
-            </h1>
-
-            <p className="text-xl text-zinc-900 mb-8">
-              {formatPrice(product.price)}
+        {/* Right: sticky info panel */}
+        <div className="w-full md:w-1/2 md:sticky md:top-14 md:h-[calc(100vh-56px)] md:overflow-y-auto px-8 md:px-14 py-10 md:py-16 flex flex-col">
+          {product.categories && (
+            <p className="text-xs uppercase tracking-widest text-zinc-400 mb-3">
+              {product.categories.name}
             </p>
+          )}
 
-            <WhatsAppButton
-              url={waUrl}
-              productId={product.id}
-              productName={product.name}
-              variant="order"
-              className="mb-8"
-            />
+          <h1 className="text-xl font-medium text-zinc-900 mb-4 leading-snug">
+            {product.name}
+          </h1>
 
-            {product.description && (
-              <div className="border-t border-zinc-100 pt-7">
-                <p className="text-sm text-zinc-500 leading-relaxed whitespace-pre-line">
-                  {product.description}
-                </p>
-              </div>
-            )}
+          <p className="text-xl text-zinc-900 mb-8">
+            {formatPrice(product.price)}
+          </p>
 
-            {specs.length > 0 && (
-              <div className="border-t border-zinc-100 pt-7 mt-7">
-                <p className="text-xs uppercase tracking-widest text-zinc-400 mb-5">Характеристики</p>
-                <dl className="space-y-3">
-                  {specs.map(({ key, value }) => (
-                    <div key={key} className="flex gap-6 text-sm">
-                      <dt className="text-zinc-400 w-28 shrink-0 text-xs uppercase tracking-wide">{key}</dt>
-                      <dd className="text-zinc-700">{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            )}
-          </div>
+          <WhatsAppButton
+            url={waUrl}
+            productId={product.id}
+            productName={product.name}
+            variant="order"
+            className="mb-8"
+          />
+
+          {product.description && (
+            <div className="border-t border-zinc-100 pt-7">
+              <p className="text-sm text-zinc-500 leading-relaxed whitespace-pre-line">
+                {product.description}
+              </p>
+            </div>
+          )}
+
+          {specs.length > 0 && (
+            <div className="border-t border-zinc-100 pt-7 mt-7">
+              <p className="text-xs uppercase tracking-widest text-zinc-400 mb-5">Характеристики</p>
+              <dl className="space-y-3">
+                {specs.map(({ key, value }) => (
+                  <div key={key} className="flex gap-6 text-sm">
+                    <dt className="text-zinc-400 w-28 shrink-0 text-xs uppercase tracking-wide">{key}</dt>
+                    <dd className="text-zinc-700">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
         </div>
       </div>
 
