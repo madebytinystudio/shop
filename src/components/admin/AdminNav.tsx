@@ -8,7 +8,8 @@ const links = [
   { href: '/admin', label: 'Главная', exact: true },
   { href: '/admin/products', label: 'Товары' },
   { href: '/admin/categories', label: 'Категории' },
-  { href: '/admin/pages', label: 'Страницы' },
+  { href: '/admin/faq', label: 'FAQ' },
+  { href: '/admin/settings', label: 'Настройки' },
   { href: '/admin/analytics', label: 'Аналитика' },
 ]
 
