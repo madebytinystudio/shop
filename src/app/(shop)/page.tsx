@@ -28,7 +28,7 @@ export default async function HomePage({ searchParams }: HomeProps) {
     <div className="max-w-[1280px] mx-auto px-5 sm:px-8 py-6 md:py-10">
       {/* Mobile: horizontal category bar */}
       {categories.length > 0 && (
-        <div className="md:hidden mb-5">
+        <div className="md:hidden sticky top-14 z-40 bg-white -mx-5 sm:-mx-8 px-5 sm:px-8 py-3 border-b border-zinc-100">
           <CategoryBar categories={categories} activeCategory={category} />
         </div>
       )}
