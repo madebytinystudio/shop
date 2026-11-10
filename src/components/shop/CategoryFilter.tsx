@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { Category } from '@/types/database'
 
 interface CategoryFilterProps {
@@ -13,13 +13,13 @@ export default function CategoryFilter({ categories, activeCategory }: CategoryF
   const pathname = usePathname()
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
       <Link
         href={pathname}
-        className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
+        className={`transition-colors ${
           !activeCategory
-            ? 'bg-zinc-900 text-white border-zinc-900'
-            : 'border-zinc-200 text-zinc-600 hover:border-zinc-400'
+            ? 'text-zinc-900 font-medium'
+            : 'text-zinc-400 hover:text-zinc-900'
         }`}
       >
         Все
@@ -28,10 +28,10 @@ export default function CategoryFilter({ categories, activeCategory }: CategoryF
         <Link
           key={cat.id}
           href={`${pathname}?category=${cat.id}`}
-          className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
+          className={`transition-colors ${
             activeCategory === cat.id
-              ? 'bg-zinc-900 text-white border-zinc-900'
-              : 'border-zinc-200 text-zinc-600 hover:border-zinc-400'
+              ? 'text-zinc-900 font-medium'
+              : 'text-zinc-400 hover:text-zinc-900'
           }`}
         >
           {cat.name}

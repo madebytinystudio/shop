@@ -148,6 +148,33 @@ export async function uploadProductImage(productId: string, file: File, isPrimar
   return data
 }
 
+export async function getRelatedProducts(productId: string, categoryId: string | null, limit = 4): Promise<ProductWithImages[]> {
+  const supabase = await createClient()
+  let query = supabase
+    .from('products')
+    .select('*, product_images(*), categories(*)')
+    .eq('status', 'active')
+    .neq('id', productId)
+    .limit(limit)
+
+  if (categoryId) {
+    query = query.eq('category_id', categoryId)
+  }
+
+  const { data } = await query
+  if (!data || data.length === 0) {
+    // fall back to any products
+    const { data: fallback } = await supabase
+      .from('products')
+      .select('*, product_images(*), categories(*)')
+      .eq('status', 'active')
+      .neq('id', productId)
+      .limit(limit)
+    return (fallback as ProductWithImages[]) ?? []
+  }
+  return (data as ProductWithImages[]) ?? []
+}
+
 export async function deleteProductImage(imageId: string, productId: string) {
   const supabase = await createAdminClient()
   const { data: { user } } = await supabase.auth.getUser()

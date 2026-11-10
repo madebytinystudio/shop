@@ -14,5 +14,6 @@ export function buildWhatsAppUrl(productName: string, price: number, productUrl:
 
 export function buildWhatsAppGeneralUrl(): string {
   const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '77717011151'
-  return `https://wa.me/${phone}`
+  const text = 'Здравствуйте! Хочу узнать подробнее о ваших товарах.'
+  return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`
 }

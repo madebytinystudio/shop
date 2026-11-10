@@ -1,13 +1,15 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
-import { getProductBySlug, getProducts } from '@/lib/actions/products'
+import { getProductBySlug, getRelatedProducts } from '@/lib/actions/products'
 import { trackEvent } from '@/lib/actions/analytics'
 import { formatPrice, buildWhatsAppUrl } from '@/lib/format'
 import WhatsAppButton from '@/components/shop/WhatsAppButton'
 import ProductGallery from '@/components/shop/ProductGallery'
+import ProductCard from '@/components/shop/ProductCard'
 import { Json } from '@/types/database'
+
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -17,9 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const product = await getProductBySlug(slug)
   if (!product) return { title: 'Товар не найден' }
-
   const image = product.product_images?.find(i => i.is_primary) ?? product.product_images?.[0]
-
   return {
     title: product.name,
     description: product.description ?? `${product.name} — ${formatPrice(product.price)}`,
@@ -30,8 +30,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
   }
 }
-
-export const dynamic = 'force-dynamic'
 
 function renderSpecs(specs: Json): { key: string; value: string }[] {
   if (!specs || typeof specs !== 'object' || Array.isArray(specs)) return []
@@ -57,52 +55,80 @@ export default async function ProductPage({ params }: PageProps) {
   }).catch(() => {})
 
   const specs = renderSpecs(product.specs)
+  const related = await getRelatedProducts(product.id, product.category_id ?? null, 4)
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
-      <Link href="/" className="text-sm text-zinc-400 hover:text-zinc-700 transition-colors mb-8 inline-block">
-        ← Назад к каталогу
-      </Link>
+    <>
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6 sm:py-10">
+        {/* Breadcrumb */}
+        <Link href="/" className="text-xs text-zinc-400 hover:text-zinc-700 transition-colors tracking-wide uppercase mb-10 inline-block">
+          ← Каталог
+        </Link>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
-        <ProductGallery images={product.product_images ?? []} productName={product.name} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-20">
+          {/* Gallery */}
+          <ProductGallery images={product.product_images ?? []} productName={product.name} />
 
-        <div className="flex flex-col">
-          {product.categories && (
-            <p className="text-xs uppercase tracking-widest text-zinc-400 mb-3">{product.categories.name}</p>
-          )}
-          <h1 className="text-2xl font-semibold text-zinc-900 mb-3 leading-snug">{product.name}</h1>
-          <p className="text-2xl font-medium text-zinc-900 mb-6">{formatPrice(product.price)}</p>
+          {/* Info */}
+          <div className="flex flex-col md:py-4">
+            {product.categories && (
+              <p className="text-xs uppercase tracking-widest text-zinc-400 mb-3">
+                {product.categories.name}
+              </p>
+            )}
 
-          <WhatsAppButton
-            url={waUrl}
-            productId={product.id}
-            productName={product.name}
-            variant="order"
-            className="mb-6"
-          />
+            <h1 className="text-xl font-medium text-zinc-900 mb-4 leading-snug">
+              {product.name}
+            </h1>
 
-          {product.description && (
-            <div className="border-t border-zinc-100 pt-6">
-              <p className="text-sm text-zinc-600 leading-relaxed whitespace-pre-line">{product.description}</p>
-            </div>
-          )}
+            <p className="text-xl text-zinc-900 mb-8">
+              {formatPrice(product.price)}
+            </p>
 
-          {specs.length > 0 && (
-            <div className="border-t border-zinc-100 pt-6 mt-6">
-              <p className="text-xs uppercase tracking-widest text-zinc-400 mb-4">Характеристики</p>
-              <dl className="space-y-2">
-                {specs.map(({ key, value }) => (
-                  <div key={key} className="flex gap-4 text-sm">
-                    <dt className="text-zinc-400 w-32 shrink-0">{key}</dt>
-                    <dd className="text-zinc-700">{value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          )}
+            <WhatsAppButton
+              url={waUrl}
+              productId={product.id}
+              productName={product.name}
+              variant="order"
+              className="mb-8"
+            />
+
+            {product.description && (
+              <div className="border-t border-zinc-100 pt-7">
+                <p className="text-sm text-zinc-500 leading-relaxed whitespace-pre-line">
+                  {product.description}
+                </p>
+              </div>
+            )}
+
+            {specs.length > 0 && (
+              <div className="border-t border-zinc-100 pt-7 mt-7">
+                <p className="text-xs uppercase tracking-widest text-zinc-400 mb-5">Характеристики</p>
+                <dl className="space-y-3">
+                  {specs.map(({ key, value }) => (
+                    <div key={key} className="flex gap-6 text-sm">
+                      <dt className="text-zinc-400 w-28 shrink-0 text-xs uppercase tracking-wide">{key}</dt>
+                      <dd className="text-zinc-700">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Related products */}
+      {related.length > 0 && (
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 mt-16 mb-10">
+          <p className="text-xs uppercase tracking-widest text-zinc-400 mb-6">Похожие товары</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
+            {related.map(p => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   )
 }

@@ -3,10 +3,11 @@ import { getProducts } from '@/lib/actions/products'
 import { getCategories } from '@/lib/actions/categories'
 import { trackEvent } from '@/lib/actions/analytics'
 import ProductGrid from '@/components/shop/ProductGrid'
-import CategoryFilter from '@/components/shop/CategoryFilter'
+import CategorySidebar from '@/components/shop/CategorySidebar'
+import CategoryBar from '@/components/shop/CategoryBar'
 
 export const metadata: Metadata = {
-  title: 'Каталог товаров',
+  title: 'Каталог',
   description: 'Просматривайте наш каталог товаров и оформляйте заказы через WhatsApp',
 }
 
@@ -24,13 +25,26 @@ export default async function HomePage({ searchParams }: HomeProps) {
   await trackEvent('page_view_catalog').catch(() => {})
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <div className="max-w-[1280px] mx-auto px-5 sm:px-8 py-6 md:py-10">
+      {/* Mobile: horizontal category bar */}
       {categories.length > 0 && (
-        <div className="mb-8">
-          <CategoryFilter categories={categories} activeCategory={category} />
+        <div className="md:hidden mb-5">
+          <CategoryBar categories={categories} activeCategory={category} />
         </div>
       )}
-      <ProductGrid products={products} />
+
+      <div className="flex gap-12">
+        {/* Desktop: sidebar */}
+        {categories.length > 0 && (
+          <div className="hidden md:block">
+            <CategorySidebar categories={categories} activeCategory={category} />
+          </div>
+        )}
+
+        <div className="flex-1 min-w-0">
+          <ProductGrid products={products} />
+        </div>
+      </div>
     </div>
   )
 }
