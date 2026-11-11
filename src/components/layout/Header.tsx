@@ -14,7 +14,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop: left nav */}
-        <nav className="hidden md:flex items-center gap-6 text-xs tracking-wide text-zinc-500 uppercase">
+        <nav className="hidden md:flex items-center gap-6 text-xs tracking-wide text-zinc-400 uppercase">
           <Link href="/" className="hover:text-zinc-900 transition-colors">Каталог</Link>
           <Link href="/about" className="hover:text-zinc-900 transition-colors">О нас</Link>
           <Link href="/faq" className="hover:text-zinc-900 transition-colors">FAQ</Link>

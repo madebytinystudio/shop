@@ -18,9 +18,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             'border border-zinc-200 bg-white text-zinc-900 hover:bg-zinc-50 focus-visible:ring-zinc-300': variant === 'secondary',
             'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 focus-visible:ring-zinc-300': variant === 'ghost',
             'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-600': variant === 'danger',
-            'h-8 px-3 text-sm rounded': size === 'sm',
-            'h-10 px-4 text-sm rounded-md': size === 'md',
-            'h-12 px-6 text-base rounded-md': size === 'lg',
+            'h-8 px-3 text-sm rounded-ui': size === 'sm',
+            'h-10 px-4 text-sm rounded-ui': size === 'md',
+            'h-12 px-6 text-base rounded-ui': size === 'lg',
           },
           className
         )}

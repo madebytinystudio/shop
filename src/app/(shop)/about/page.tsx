@@ -90,7 +90,7 @@ export default async function AboutPage() {
             ].map(({ icon, label }) => (
               <div key={label} className="flex flex-col items-center gap-4 text-center">
                 <span className="text-2xl text-zinc-300">{icon}</span>
-                <span className="text-[10px] tracking-widest uppercase text-zinc-500">{label}</span>
+                <span className="text-[10px] tracking-widest uppercase text-zinc-400">{label}</span>
               </div>
             ))}
           </div>
