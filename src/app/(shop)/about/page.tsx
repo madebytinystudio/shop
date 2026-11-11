@@ -27,9 +27,8 @@ export default async function AboutPage() {
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80')` }} />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 container-page w-full">
-          <p className="text-zinc-400 text-xs tracking-widest uppercase mb-6">43.2567° С, 76.9286° В</p>
-          <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-semibold leading-none tracking-tight">
-            <em className="font-serif font-normal italic">Рождены</em>{' '}из{' '}<br />снега
+          <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-serif font-normal italic leading-none tracking-tight">
+            Рождены из<br />снега
           </h1>
         </div>
       </section>
