@@ -1,5 +1,43 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
+@theme {
+  /* Layout */
+  --width-page:        1280px;   /* max-w-page */
+  --spacing-page-x:   20px;      /* base horizontal gutter (mobile) */
+  --spacing-page-x-sm: 32px;    /* horizontal gutter ≥ sm */
+
+  /* Border radius */
+  --radius-card:       0px;      /* product cards — sharp / luxury */
+  --radius-ui:         6px;      /* buttons, inputs */
+  --radius-panel:      8px;      /* admin panels, modals */
+
+  /* Semantic color aliases (map to zinc palette) */
+  --color-text:        var(--color-zinc-900);   /* primary text */
+  --color-text-2:      var(--color-zinc-500);   /* prices, secondary body text */
+  --color-text-muted:  var(--color-zinc-400);   /* labels, inactive nav, icons */
+  --color-text-faint:  var(--color-zinc-300);   /* inactive sidebar links */
+  --color-border:      var(--color-zinc-200);   /* card/header borders */
+  --color-border-subtle: var(--color-zinc-100); /* section dividers */
+  --color-fill-soft:   var(--color-zinc-100);   /* image placeholder bg */
+  --color-surface:     var(--color-white);      /* cards, header, footer */
+  --color-bg:          var(--color-white);      /* page background */
+}
+
+/* ─── Custom utilities ───────────────────────────────────────────────────── */
+
+/* Unified page container — replaces scattered max-w-[1280px] mx-auto px-5 sm:px-8 */
+@utility container-page {
+  max-width: var(--width-page);
+  margin-inline: auto;
+  padding-inline: var(--spacing-page-x);
+
+  @media (width >= 640px) {
+    padding-inline: var(--spacing-page-x-sm);
+  }
+}
+
+/* ─── Base styles ────────────────────────────────────────────────────────── */
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
@@ -11,8 +49,8 @@
   }
 
   body {
-    background: #efefef;
-    color: #111;
+    background: var(--color-bg);
+    color: var(--color-text);
   }
 
   a {

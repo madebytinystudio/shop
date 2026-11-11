@@ -4,6 +4,17 @@ import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { ProductWithImages } from '@/types/database'
 
+function parseSpecsFromForm(formData: FormData): Record<string, string> | null {
+  const keys = formData.getAll('spec_key') as string[]
+  const values = formData.getAll('spec_value') as string[]
+  const result: Record<string, string> = {}
+  for (let i = 0; i < keys.length; i++) {
+    const k = keys[i].trim()
+    if (k) result[k] = values[i]?.trim() ?? ''
+  }
+  return Object.keys(result).length ? result : null
+}
+
 export async function getProducts(categoryId?: string): Promise<ProductWithImages[]> {
   const supabase = await createClient()
   let query = supabase
@@ -59,11 +70,7 @@ export async function createProduct(formData: FormData): Promise<{ id: string }>
   const categoryId = formData.get('category_id') as string
   const status = formData.get('status') as 'active' | 'hidden'
 
-  const specsRaw = formData.get('specs') as string
-  let specs = null
-  if (specsRaw) {
-    try { specs = JSON.parse(specsRaw) } catch {}
-  }
+  const specs = parseSpecsFromForm(formData)
 
   const { data, error } = await supabase
     .from('products')
@@ -89,11 +96,7 @@ export async function updateProduct(id: string, formData: FormData) {
   const categoryId = formData.get('category_id') as string
   const status = formData.get('status') as 'active' | 'hidden'
 
-  const specsRaw = formData.get('specs') as string
-  let specs = null
-  if (specsRaw) {
-    try { specs = JSON.parse(specsRaw) } catch {}
-  }
+  const specs = parseSpecsFromForm(formData)
 
   const { error } = await supabase
     .from('products')
