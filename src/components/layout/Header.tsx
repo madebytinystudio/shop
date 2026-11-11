@@ -6,7 +6,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-zinc-200">
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
+      <div className="container-page h-14 flex items-center justify-between">
 
         {/* Mobile: logo left */}
         <Link href="/" className="text-sm font-semibold tracking-widest uppercase text-zinc-900 md:hidden">

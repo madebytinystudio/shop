@@ -37,7 +37,7 @@ export default function FaqClient({ sections }: { sections: FaqSection[] }) {
   }, [sections])
 
   return (
-    <div className="max-w-[1280px] mx-auto px-5 sm:px-8 py-10 md:py-16">
+    <div className="container-page py-10 md:py-16">
       <div className="flex flex-col md:flex-row gap-10 md:gap-24 items-start">
 
         <div className="hidden md:block sticky top-14 self-start max-h-[calc(100vh-56px)] overflow-y-auto pt-10 w-40 shrink-0">

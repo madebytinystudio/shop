@@ -25,7 +25,7 @@ export default async function HomePage({ searchParams }: HomeProps) {
   await trackEvent('page_view_catalog').catch(() => {})
 
   return (
-    <div className="max-w-[1280px] mx-auto px-5 sm:px-8 py-6 md:py-10">
+    <div className="container-page py-6 md:py-10">
       {/* Mobile: horizontal category bar */}
       {categories.length > 0 && (
         <div className="md:hidden sticky top-14 z-40 bg-white -mx-5 sm:-mx-8 px-5 sm:px-8 py-3 border-b border-zinc-100">

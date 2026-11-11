@@ -116,7 +116,7 @@ export default async function ProductPage({ params }: PageProps) {
 
       {/* Related products */}
       {related.length > 0 && (
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 mt-16 mb-10">
+        <div className="container-page mt-16 mb-10">
           <p className="text-xs uppercase tracking-widest text-zinc-400 mb-6">Похожие товары</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
             {related.map(p => (

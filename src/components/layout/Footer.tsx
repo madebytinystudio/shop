@@ -4,7 +4,7 @@ import { buildWhatsAppGeneralUrl } from '@/lib/format'
 export default function Footer() {
   return (
     <footer className="bg-white mt-24">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12 flex flex-col sm:flex-row sm:justify-between gap-10">
+      <div className="container-page py-12 flex flex-col sm:flex-row sm:justify-between gap-10">
 
         {/* Left: brand */}
         <div>

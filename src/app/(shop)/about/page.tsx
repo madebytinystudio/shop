@@ -26,7 +26,7 @@ export default async function AboutPage() {
       <section className="relative h-[90vh] min-h-[500px] bg-zinc-900 overflow-hidden flex items-end pb-16 md:pb-24">
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80')` }} />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 max-w-[1280px] mx-auto px-5 sm:px-8 w-full">
+        <div className="relative z-10 container-page w-full">
           <p className="text-zinc-400 text-xs tracking-widest uppercase mb-6">43.2567° С, 76.9286° В</p>
           <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-semibold leading-none tracking-tight">
             <em className="font-serif font-normal italic">Рождены</em>{' '}из{' '}<br />снега
@@ -34,7 +34,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="max-w-[1280px] mx-auto px-5 sm:px-8 py-20 md:py-28">
+      <section className="container-page py-20 md:py-28">
         <div className="flex flex-col md:flex-row gap-10 md:gap-20">
           <div className="md:w-40 shrink-0">
             <p className="text-[10px] tracking-widest uppercase text-zinc-400 md:sticky md:top-24">Наша история</p>
@@ -53,7 +53,7 @@ export default async function AboutPage() {
       <section className="relative h-[70vh] min-h-[400px] overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1600&q=80')` }} />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 h-full flex items-end p-8 md:p-16 max-w-[1280px] mx-auto">
+        <div className="relative z-10 h-full flex items-end p-8 md:p-16 max-w-page mx-auto">
           <div className="max-w-md">
             <h2 className="text-white text-2xl md:text-3xl font-semibold mb-4 leading-snug">Познакомьтесь с основателями</h2>
             {foundersName && <p className="text-zinc-300 text-sm font-medium mb-2">{foundersName}</p>}
@@ -62,7 +62,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="max-w-[1280px] mx-auto px-5 sm:px-8 py-20 md:py-28">
+      <section className="container-page py-20 md:py-28">
         <div className="grid md:grid-cols-2 gap-10 md:gap-20 items-center">
           <div>
             <h2 className="text-zinc-900 text-2xl md:text-3xl font-semibold mb-6 leading-snug">Собрано с умыслом</h2>
@@ -77,7 +77,7 @@ export default async function AboutPage() {
       </section>
 
       <section className="border-t border-zinc-100 py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8">
+        <div className="container-page">
           <h2 className="text-center text-zinc-900 text-xl md:text-2xl font-semibold mb-16 tracking-wide">Наши принципы</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-8">
             {[
